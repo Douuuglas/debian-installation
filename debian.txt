@@ -1,0 +1,60 @@
+sudo apt install --yes --no-install-recommends gnome-core
+
+sudo apt-get install --show-progress --yes \
+    cheese \
+    cups \
+    curl \
+    clojure \
+    file-roller \
+    foliate \
+    gnome-clocks \
+    gnome-epub-thumbnailer \
+    gnome-firmware \
+    gnome-power-manager \
+    gnome-software-plugin-snap \
+    gnome-sound-recorder \
+    gnome-tweaks \
+    git \
+    libproxy1-plugin-networkmanager \
+    low-memory-monitor \
+    nautilus-share \
+    neofetch \
+    neovim \
+    network-manager-gnome \
+    network-manager-config-connectivity-debian \
+    network-manager-openconnect-gnome \
+    network-manager-openvpn-gnome \
+    network-manager-ssh-gnome \
+    network-manager-vpnc-gnome \
+    nodejs \
+    ooo-thumbnailer \
+    pdfarranger \
+    plymouth-themes \
+    printer-driver-cups-pdf \
+    rsync \
+    snapd \
+    shotwell \
+    smbclient \
+    ssh-askpass-gnome \
+    synaptic \
+    transmission-gtk \
+    task-laptop \
+    unattended-upgrades \
+    wireguard
+    
+sudo snap install core
+sudo snap install firefox vlc dbeaver-ce code spotify slack libreoffice
+
+sudo apt-get update && \
+    sudo apt-get install ca-certificates && \
+    sudo install -m 0755 -d /etc/apt/keyrings && \
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update && \
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
