@@ -31,13 +31,11 @@ sudo apt-get install --show-progress --yes \
     pdfarranger \
     plymouth-themes \
     printer-driver-cups-pdf \
-    rsync \
     snapd \
     shotwell \
     smbclient \
     ssh-askpass-gnome \
     synaptic \
-    transmission-gtk \
     task-laptop \
     unattended-upgrades \
     wireguard
