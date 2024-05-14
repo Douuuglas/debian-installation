@@ -1,6 +1,7 @@
 sudo apt install --yes --no-install-recommends gnome-core
 
 sudo apt-get install --show-progress --yes \
+    awscli \
     cheese \
     cups \
     curl \
@@ -9,6 +10,7 @@ sudo apt-get install --show-progress --yes \
     foliate \
     gnome-clocks \
     gnome-epub-thumbnailer \
+    gnome-shell-extension-manager \
     gnome-firmware \
     gnome-power-manager \
     gnome-software-plugin-snap \
@@ -39,9 +41,12 @@ sudo apt-get install --show-progress --yes \
     task-laptop \
     unattended-upgrades \
     wireguard
+
+sudo rm /etc/network/interfaces 
     
 sudo snap install core
-sudo snap install firefox vlc dbeaver-ce code spotify slack libreoffice
+sudo snap install firefox vlc dbeaver-ce spotify slack libreoffice
+sudo snap install code --classic 
 
 sudo apt-get update && \
     sudo apt-get install ca-certificates && \
@@ -51,7 +56,7 @@ sudo apt-get update && \
 
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  bookworm stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt-get update && \
