@@ -51,6 +51,9 @@ sudo apt-get install --show-progress --yes \
     qemu-utils \
     libvirt-daemon-system
 
+# Install nvidia driver for GTX 1650
+sudo apt install nvidia-driver
+
 # Fix network on gnome
 sudo rm /etc/network/interfaces 
 
