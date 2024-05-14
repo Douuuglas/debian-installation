@@ -6,11 +6,14 @@ sudo apt-get install --show-progress --yes \
     cups \
     curl \
     clojure \
+    dconf-editor \
     file-roller \
     foliate \
     gnome-clocks \
     gnome-epub-thumbnailer \
     gnome-shell-extension-manager \
+    gnome-shell-extensions \
+    gnome-shell-extensions-extra \
     gnome-firmware \
     gnome-power-manager \
     gnome-software-plugin-snap \
