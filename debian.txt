@@ -8,7 +8,6 @@ sudo apt-get install --show-progress --yes \
     cups \
     cups-pk-helper \
     curl \
-    clojure \
     dconf-editor \
     file-roller \
     foliate \
@@ -89,6 +88,10 @@ sudo apt-get update && \
 
 sudo groupadd docker
 sudo usermod -aG docker $USER
+
+# Install clojure
+sudo apt install -y openjdk-17-jdk \
+    clojure
 
 # Install dotnet
 wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
