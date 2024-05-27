@@ -51,6 +51,27 @@ sudo apt-get install --show-progress --yes \
     qemu-utils \
     libvirt-daemon-system
 
+# Install firefox
+sudo install -d -m 0755 /etc/apt/keyrings && \
+    wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && \
+    echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && \
+    echo '
+        Package: *
+        Pin: origin packages.mozilla.org
+        Pin-Priority: 1000
+        ' | sudo tee /etc/apt/preferences.d/mozilla && \
+    sudo apt-get update && sudo apt-get install firefox
+
+# Install vscode
+sudo apt-get install wget gpg && \
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
+    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg && \
+    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && \
+    rm -f packages.microsoft.gpg && \
+    sudo apt install apt-transport-https && \
+    sudo apt update && \
+    sudo apt install code
+
 # Configure time zone
 sudo dpkg-reconfigure tzdata
 
@@ -68,8 +89,7 @@ sudo rm /etc/network/interfaces
 
 # Install snaps
 sudo snap install core
-sudo snap install firefox vlc dbeaver-ce spotify slack libreoffice amz-workspaces
-sudo snap install code --classic 
+sudo snap install vlc dbeaver-ce spotify slack libreoffice amz-workspaces
 
 # Install docker
 sudo apt-get update && \
