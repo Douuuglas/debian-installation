@@ -1,8 +1,8 @@
 # Install minimal gnome
-sudo apt install --yes --no-install-recommends gnome-core
+sudo apt install -y --no-install-recommends gnome-core
 
 # Install apps
-sudo apt-get install --show-progress --yes \
+sudo apt install -y --show-progress \
     awscli \
     cheese \
     cups \
@@ -22,6 +22,7 @@ sudo apt-get install --show-progress --yes \
     gnome-sound-recorder \
     gnome-tweaks \
     git \
+    libreoffice \
     libproxy1-plugin-networkmanager \
     low-memory-monitor \
     nautilus-share \
@@ -38,7 +39,6 @@ sudo apt-get install --show-progress --yes \
     pdfarranger \
     plymouth-themes \
     printer-driver-cups-pdf \
-    snapd \
     shotwell \
     smbclient \
     ssh-askpass-gnome \
@@ -47,6 +47,7 @@ sudo apt-get install --show-progress --yes \
     unattended-upgrades \
     wireguard \
     virt-manager \
+    vlc \
     qemu-system-x86 \
     qemu-utils \
     libvirt-daemon-system
@@ -61,19 +62,31 @@ sudo install -d -m 0755 /etc/apt/keyrings && \
         else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}' && \
     echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | \
         sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && \
-    sudo apt-get update && sudo apt-get install firefox
+    sudo apt update && sudo apt install -y firefox
 
 # Install vscode
-sudo apt-get install wget gpg && \
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
     sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg && \
     echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] \
         https://packages.microsoft.com/repos/code stable main" | \
         sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && \
     rm -f packages.microsoft.gpg && \
-    sudo apt install apt-transport-https && \
+    sudo apt install -y apt-transport-https && \
     sudo apt update && \
-    sudo apt install code
+    sudo apt install -y code
+
+# Gnome shortcuts
+Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts > Custom Shortcuts > Add Shortcuts
+Name: Launch Terminal, Command: gnome-terminal, Shortcut: [Super + t]
+
+Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts: Home folder
+Shortcut: [Super + f]
+
+Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts: Launch web browser
+hortcut: [Super + b]
+
+Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts: Maximize window vertically
+Shortcut: [Ctrl + Super + ↑]
 
 # Configure time zone
 sudo dpkg-reconfigure tzdata
@@ -82,21 +95,34 @@ sudo dpkg-reconfigure tzdata
 sudo dpkg-reconfigure locales
 
 # Install nvidia driver for GTX 1650
-sudo apt install nvidia-detect && \
+sudo apt install -y nvidia-detect && \
     nvidia-detect
 
-sudo apt install nvidia-driver firmware-misc-nonfree
+sudo apt install -y nvidia-driver firmware-misc-nonfree xserver-xorg-input-all
+
+# Replace boot text with splash screen
+sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/' /etc/default/grub && sudo update-grub2
 
 # Fix network on gnome
-sudo rm /etc/network/interfaces 
+sudo sed -i 's/managed=false/managed=true/' /etc/NetworkManager/NetworkManager.conf && \
+    sudo mv /etc/network/interfaces /etc/network/interfaces.bak && \
+    sudo reboot
 
 # Install snaps
-sudo snap install core
-sudo snap install vlc dbeaver-ce spotify slack libreoffice amz-workspaces
+sudp apt install -y snapd && \ 
+    sudo snap install core && \
+    echo snap >> ~/.hidden && \
+    sudo snap install spotify slack amz-workspaces
+
+# Install dbeaver-ce
+sudo  wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key && \
+    echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list && \
+    sudo apt update && \
+    sudo apt install -y dbeaver-ce
 
 # Install docker
-sudo apt-get update && \
-    sudo apt-get install ca-certificates && \
+sudo apt update && \
+    sudo apt install -y ca-certificates && \
     sudo install -m 0755 -d /etc/apt/keyrings && \
     sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
     sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -106,11 +132,9 @@ echo \
     https://download.docker.com/linux/debian bookworm stable" | \
     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-sudo apt-get update && \
-    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-
-sudo groupadd docker
-sudo usermod -aG docker $USER
+sudo apt update && \
+    sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin && \
+    sudo usermod -aG docker $USER
 
 # Install clojure
 sudo apt install -y openjdk-17-jdk \
@@ -119,12 +143,11 @@ sudo apt install -y openjdk-17-jdk \
 # Install dotnet
 wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     sudo dpkg -i packages-microsoft-prod.deb && \
-    rm packages-microsoft-prod.deb
-
-sudo apt-get update && \
-  sudo apt-get install -y dotnet-sdk-8.0 dotnet-sdk-6.0
+    rm packages-microsoft-prod.deb && \
+    sudo apt update && \
+    sudo apt install -y dotnet-sdk-8.0 dotnet-sdk-6.0
 
 # Config git
-git config --global user.name "Douglas Moura"
-git config --global user.email "douuuglas@gmail.com"
-git config --global credential.helper store
+git config --global user.name "Douglas Moura" && \
+    git config --global user.email "douuuglas@gmail.com" && \
+    git config --global credential.helper store
