@@ -11,6 +11,7 @@ sudo apt install -y --show-progress \
     dconf-editor \
     file-roller \
     foliate \
+    ffmpeg \
     gnome-clocks \
     gnome-epub-thumbnailer \
     gnome-shell-extension-manager \
@@ -108,11 +109,17 @@ sudo sed -i 's/managed=false/managed=true/' /etc/NetworkManager/NetworkManager.c
     sudo mv /etc/network/interfaces /etc/network/interfaces.bak && \
     sudo reboot
 
+# Install spotify
+curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg && \
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list && \
+    sudo apt-get update && \
+    sudo apt-get install spotify-client
+
 # Install snaps
 sudp apt install -y snapd && \ 
     sudo snap install core && \
     echo snap >> ~/.hidden && \
-    sudo snap install spotify slack amz-workspaces
+    sudo snap install 
 
 # Install dbeaver-ce
 sudo  wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key && \
