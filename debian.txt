@@ -40,6 +40,7 @@ sudo apt install -y --show-progress \
     pdfarranger \
     plymouth-themes \
     printer-driver-cups-pdf \
+    solaar \
     shotwell \
     smbclient \
     ssh-askpass-gnome \
