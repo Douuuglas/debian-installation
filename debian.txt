@@ -116,10 +116,10 @@ curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo 
     sudo apt-get install spotify-client
 
 # Install snaps
-sudp apt install -y snapd && \ 
+sudo apt install -y snapd && \ 
     sudo snap install core && \
     echo snap >> ~/.hidden && \
-    sudo snap install 
+    sudo snap install teams-for-linux
 
 # Install dbeaver-ce
 sudo  wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key && \
