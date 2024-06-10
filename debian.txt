@@ -4,6 +4,7 @@ sudo apt install -y --no-install-recommends gnome-core
 # Install apps
 sudo apt install -y --show-progress \
     awscli \
+    bat \
     cheese \
     cups \
     cups-pk-helper \
@@ -12,6 +13,7 @@ sudo apt install -y --show-progress \
     file-roller \
     foliate \
     ffmpeg \
+    fzf \
     gnome-clocks \
     gnome-epub-thumbnailer \
     gnome-shell-extension-manager \
