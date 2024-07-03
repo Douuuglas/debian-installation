@@ -46,6 +46,7 @@ sudo apt install -y --show-progress \
     solaar \
     shotwell \
     smbclient \
+    sudo \
     ssh-askpass-gnome \
     synaptic \
     task-laptop \
