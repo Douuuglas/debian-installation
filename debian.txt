@@ -125,6 +125,12 @@ cd ~/Downloads && \
     sudo apt install ./keybase_amd64.deb && \
     rm keybase_amd64.deb
 
+# Install slack
+cd ~/Downloads && \
+    curl --remote-name https://downloads.slack-edge.com/desktop-releases/linux/x64/4.39.88/slack-desktop-4.39.88-amd64.deb && \
+    sudo apt install ./slack-desktop-4.39.88-amd64.deb && \
+    rm slack-desktop-4.39.88-amd64.deb
+
 # Install snaps
 sudo apt install -y snapd && \ 
     sudo snap install core && \
