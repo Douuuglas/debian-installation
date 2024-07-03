@@ -10,6 +10,7 @@ sudo apt install -y --show-progress \
     cups-pk-helper \
     curl \
     dconf-editor \
+    flameshot \
     file-roller \
     foliate \
     ffmpeg \
@@ -118,6 +119,12 @@ curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo 
     sudo apt-get update && \
     sudo apt-get install spotify-client
 
+# Install keybase
+cd ~/Downloads && \
+    curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb && \
+    sudo apt install ./keybase_amd64.deb && \
+    rm keybase_amd64.deb
+
 # Install snaps
 sudo apt install -y snapd && \ 
     sudo snap install core && \
@@ -147,7 +154,7 @@ sudo apt update && \
     sudo usermod -aG docker $USER
 
 # Install clojure
-cd ~/Downloads  && \
+cd ~/Downloads && \
     sudo apt install -y openjdk-17-jdk  && \
     curl -L -O https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh && \
     chmod +x linux-install.sh  && \
@@ -155,7 +162,8 @@ cd ~/Downloads  && \
     rm linux-install.sh
 
 # Install dotnet
-wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+cd ~/Downloads && \
+    wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     sudo dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb && \
     sudo apt update && \
