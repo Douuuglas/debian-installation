@@ -26,6 +26,8 @@ sudo apt install -y --show-progress \
     gnome-sound-recorder \
     gnome-tweaks \
     git \
+    jq \
+    kcat \
     libreoffice \
     libproxy1-plugin-networkmanager \
     low-memory-monitor \
@@ -45,6 +47,7 @@ sudo apt install -y --show-progress \
     plymouth-themes \
     printer-driver-cups-pdf \
     redis-cli \
+    ruby \
     solaar \
     shotwell \
     smbclient \
@@ -52,13 +55,15 @@ sudo apt install -y --show-progress \
     ssh-askpass-gnome \
     synaptic \
     task-laptop \
+    uuid-runtime \
     unattended-upgrades \
     wireguard \
     virt-manager \
     vlc \
     qemu-system-x86 \
     qemu-utils \
-    libvirt-daemon-system
+    libvirt-daemon-system \
+    yq
 
 # Install firefox
 sudo install -d -m 0755 /etc/apt/keyrings && \
