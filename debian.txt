@@ -39,6 +39,7 @@ sudo apt install -y --show-progress \
     network-manager-ssh-gnome \
     network-manager-vpnc-gnome \
     nodejs \
+    npm \
     ooo-thumbnailer \
     pdfarranger \
     plymouth-themes \
