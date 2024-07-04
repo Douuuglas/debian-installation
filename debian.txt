@@ -44,6 +44,7 @@ sudo apt install -y --show-progress \
     pdfarranger \
     plymouth-themes \
     printer-driver-cups-pdf \
+    redis-cli \
     solaar \
     shotwell \
     smbclient \
@@ -160,6 +161,12 @@ echo \
 sudo apt update && \
     sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin && \
     sudo usermod -aG docker $USER
+
+# Install sql-cli
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
+    curl https://packages.microsoft.com/config/debian/12/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list && \
+    sudo apt-get update && \
+    sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17
 
 # Install clojure
 cd ~/Downloads && \
