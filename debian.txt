@@ -95,14 +95,14 @@ sudo apt install -y nvidia-detect && \
 sudo apt install -y nvidia-driver firmware-misc-nonfree xserver-xorg-input-all
 
 # Install firefox
-sudo install -d -m 0755 /etc/apt/keyrings && \
+sudo install -d -m 0755 /usr/share/keyrings && \
     wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | \
-        sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && \
-    gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc | \
+        sudo tee /usr/share/keyrings/packages.mozilla.org.asc > /dev/null && \
+    gpg -n -q --import --import-options import-show /usr/share/keyrings/packages.mozilla.org.asc | \
         awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") \ 
         print "\nThe key fingerprint matches ("$0").\n"; \ 
         else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}' && \
-    echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | \
+    echo "deb [signed-by=/usr/share/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | \
         sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && \
     sudo apt update && sudo apt install -y firefox
 
@@ -133,12 +133,12 @@ sudo  wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeave
 # Install docker
 sudo apt update && \
     sudo apt install -y ca-certificates && \
-    sudo install -m 0755 -d /etc/apt/keyrings && \
-    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
-    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    sudo install -m 0755 -d /usr/share/keyrings && \
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /usr/share/keyrings/docker.asc && \
+    sudo chmod a+r /usr/share/keyrings/docker.asc
 
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.asc] \
     https://download.docker.com/linux/debian bookworm stable" | \
     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
@@ -148,7 +148,7 @@ sudo apt update && \
 
 # Install vscode
 curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
-    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] \
+    echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/packages.microsoft.gpg] \
         https://packages.microsoft.com/repos/code stable main" | \
         sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && \
     sudo apt install -y apt-transport-https && \
