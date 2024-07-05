@@ -43,6 +43,7 @@ sudo apt install -y --show-progress \
     nodejs \
     npm \
     ooo-thumbnailer \
+    pandoc \
     pdfarranger \
     plymouth-themes \
     printer-driver-cups-pdf \
