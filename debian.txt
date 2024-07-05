@@ -47,6 +47,7 @@ sudo apt install -y --show-progress \
     pdfarranger \
     plymouth-themes \
     printer-driver-cups-pdf \
+    python3.11-venv \
     redis-cli \
     ruby \
     solaar \
