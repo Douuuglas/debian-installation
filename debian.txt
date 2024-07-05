@@ -79,17 +79,6 @@ sudo install -d -m 0755 /etc/apt/keyrings && \
         sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && \
     sudo apt update && sudo apt install -y firefox
 
-# Install vscode
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
-    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg && \
-    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] \
-        https://packages.microsoft.com/repos/code stable main" | \
-        sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && \
-    rm -f packages.microsoft.gpg && \
-    sudo apt install -y apt-transport-https && \
-    sudo apt update && \
-    sudo apt install -y code
-
 # Gnome shortcuts
 Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts > Custom Shortcuts > Add Shortcuts
 Name: Launch Terminal, Command: gnome-terminal, Shortcut: [Super + t]
@@ -169,11 +158,26 @@ sudo apt update && \
     sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin && \
     sudo usermod -aG docker $USER
 
+# Install vscode
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
+    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] \
+        https://packages.microsoft.com/repos/code stable main" | \
+        sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && \
+    sudo apt install -y apt-transport-https && \
+    sudo apt update && \
+    sudo apt install -y code
+
 # Install sql-cli
 curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
-    curl https://packages.microsoft.com/config/debian/12/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list && \
+    curl https://packages.microsoft.com/config/debian/12/prod.list | sudo tee /etc/apt/sources.list.d/microsoft-prod.list && \
     sudo apt-get update && \
     sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
+
+# Install dotnet
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
+    curl https://packages.microsoft.com/config/debian/12/prod.list | sudo tee /etc/apt/sources.list.d/microsoft-prod.list && \
+    sudo apt update && \
+    sudo apt install -y dotnet-sdk-8.0 dotnet-sdk-6.0
 
 # Install clojure
 cd ~/Downloads && \
@@ -182,14 +186,6 @@ cd ~/Downloads && \
     chmod +x linux-install.sh  && \
     sudo ./linux-install.sh  && \
     rm linux-install.sh
-
-# Install dotnet
-cd ~/Downloads && \
-    wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
-    sudo dpkg -i packages-microsoft-prod.deb && \
-    rm packages-microsoft-prod.deb && \
-    sudo apt update && \
-    sudo apt install -y dotnet-sdk-8.0 dotnet-sdk-6.0
 
 # Install python 3.12.4
 cd ~/Downloads && \
