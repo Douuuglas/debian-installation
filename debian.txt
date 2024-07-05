@@ -124,6 +124,12 @@ cd ~/Downloads && \
     sudo apt install ./slack-desktop-4.39.88-amd64.deb && \
     rm slack-desktop-4.39.88-amd64.deb
 
+# Install keybase
+curl -fsSL https://keybase.io/docs/server_security/code_signing_key.asc | sudo gpg --dearmor | sudo tee /usr/share/keyrings/keybase-keyring.gpg && \
+    echo deb [signed-by=/usr/share/keyrings/keybase-keyring.gpg] http://prerelease.keybase.io/deb stable main | sudo tee /etc/apt/sources.list.d/keybase.list && \
+    sudo apt update && \
+    sudo apt install keybase
+
 # Install dbeaver-ce
 sudo  wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key && \
     echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list && \
