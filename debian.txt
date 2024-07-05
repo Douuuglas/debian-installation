@@ -190,6 +190,11 @@ cd ~/Downloads && \
     rm -rf Python-3.12.4.tgz Python-3.12.4 && \
     python3.12 -m venv ~/.venv/python3.12
 
+# Install jetbrains-tools
+wget -O ~/Downloads/jetbrains-toolbox.tar.gz -c https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-2.4.0.32175.tar.gz && \
+    sudo tar -xzf jetbrains-toolbox.tar.gz -C /opt && \
+    rm ~/Downloads/jetbrains-toolbox.tar.gz
+
 # Config git
 git config --global user.name "Douglas Moura" && \
     git config --global user.email "douuuglas@gmail.com" && \
