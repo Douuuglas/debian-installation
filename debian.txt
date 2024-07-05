@@ -70,6 +70,9 @@ sudo apt install -y --show-progress \
 Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts > Custom Shortcuts > Add Shortcuts
 Name: Launch Terminal, Command: gnome-terminal, Shortcut: [Super + t]
 
+Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts > Custom Shortcuts > Add Shortcuts
+Name: Launch Flameshot, Command: flameshot gui, Shortcut: [Super + x]
+
 Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts: Home folder
 Shortcut: [Super + f]
 
