@@ -112,12 +112,6 @@ curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo 
     sudo apt-get update && \
     sudo apt-get install spotify-client
 
-# Install keybase
-cd ~/Downloads && \
-    curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb && \
-    sudo apt install ./keybase_amd64.deb && \
-    rm keybase_amd64.deb
-
 # Install slack
 cd ~/Downloads && \
     curl --remote-name https://downloads.slack-edge.com/desktop-releases/linux/x64/4.39.88/slack-desktop-4.39.88-amd64.deb && \
