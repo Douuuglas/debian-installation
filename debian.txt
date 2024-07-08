@@ -1,6 +1,25 @@
 # Install minimal gnome
 sudo apt install -y --no-install-recommends gnome-core
 
+# Configure time zone
+sudo dpkg-reconfigure tzdata
+
+# Configure locales
+sudo dpkg-reconfigure locales
+
+# Install nvidia driver
+sudo apt install -y nvidia-detect && \
+    nvidia-detect
+
+sudo apt install -y nvidia-driver nvidia-suspend-common firmware-misc-nonfree xserver-xorg-input-all
+
+# If wayland is not enabled
+sudo sed -i '1s/^/options nvidia-drm modeset=1\n\n/' /etc/modprobe.d/nvidia-options.conf  && \
+    sudo sed -i '/NVreg_PreserveVideoMemoryAllocations=1/s/^#//g' /etc/modprobe.d/nvidia-options.conf  && \
+    sudo systemctl enable nvidia-suspend.service && \
+    sudo systemctl enable nvidia-hibernate.service && \
+    sudo systemctl enable nvidia-resume.service
+
 # Install apps
 sudo apt install -y --show-progress \
     awscli \
@@ -81,18 +100,6 @@ hortcut: [Super + b]
 
 Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts: Maximize window vertically
 Shortcut: [Ctrl + Super + ↑]
-
-# Configure time zone
-sudo dpkg-reconfigure tzdata
-
-# Configure locales
-sudo dpkg-reconfigure locales
-
-# Install nvidia driver for GTX 1650
-sudo apt install -y nvidia-detect && \
-    nvidia-detect
-
-sudo apt install -y nvidia-driver firmware-misc-nonfree xserver-xorg-input-all
 
 # Install firefox
 sudo install -d -m 0755 /usr/share/keyrings && \
