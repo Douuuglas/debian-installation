@@ -11,7 +11,8 @@ sudo dpkg-reconfigure locales
 sudo apt install -y nvidia-detect && \
     nvidia-detect
 
-sudo apt install -y nvidia-driver nvidia-suspend-common firmware-misc-nonfree xserver-xorg-input-all
+sudo apt install -y nvidia-driver nvidia-suspend-common firmware-misc-nonfree \
+    xserver-xorg-input-all # not need on trixie?
 
 # If wayland is not enabled
 sudo sed -i '1s/^/options nvidia-drm modeset=1\n\n/' /etc/modprobe.d/nvidia-options.conf  && \
@@ -114,8 +115,8 @@ sudo install -d -m 0755 /usr/share/keyrings && \
     sudo apt update && sudo apt install -y firefox
 
 # Install spotify
-curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg && \
-    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list && \
+curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo tee /usr/share/keyrings/spotify.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list && \
     sudo apt-get update && \
     sudo apt-get install spotify-client
 
@@ -126,36 +127,32 @@ cd ~/Downloads && \
     rm slack-desktop-4.39.88-amd64.deb
 
 # Install keybase
-curl -fsSL https://keybase.io/docs/server_security/code_signing_key.asc | sudo gpg --dearmor | sudo tee /usr/share/keyrings/keybase-keyring.gpg && \
-    echo deb [signed-by=/usr/share/keyrings/keybase-keyring.gpg] http://prerelease.keybase.io/deb stable main | sudo tee /etc/apt/sources.list.d/keybase.list && \
+curl -sS https://keybase.io/docs/server_security/code_signing_key.asc | sudo tee /usr/share/keyrings/keybase-keyring.asc && \
+    echo deb [signed-by=/usr/share/keyrings/keybase-keyring.asc] http://prerelease.keybase.io/deb stable main | sudo tee /etc/apt/sources.list.d/keybase.list && \
     sudo apt update && \
     sudo apt install keybase
 
 # Install dbeaver-ce
-sudo  wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key && \
-    echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list && \
+curl -sS https://dbeaver.io/debs/dbeaver.gpg.key | sudo tee /usr/share/keyrings/dbeaver.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list && \
     sudo apt update && \
     sudo apt install -y dbeaver-ce
 
 # Install docker
 sudo apt update && \
     sudo apt install -y ca-certificates && \
-    sudo install -m 0755 -d /usr/share/keyrings && \
-    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /usr/share/keyrings/docker.asc && \
-    sudo chmod a+r /usr/share/keyrings/docker.asc
-
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.asc] \
-    https://download.docker.com/linux/debian bookworm stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo tee /usr/share/keyrings/docker.asc && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.asc] \
+        https://download.docker.com/linux/debian bookworm stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt update && \
     sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin && \
     sudo usermod -aG docker $USER
 
 # Install vscode
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
-    echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/packages.microsoft.gpg] \
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /usr/share/keyrings/microsoft.asc && \
+    echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft.asc] \
         https://packages.microsoft.com/repos/code stable main" | \
         sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && \
     sudo apt install -y apt-transport-https && \
@@ -163,14 +160,18 @@ curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trust
     sudo apt install -y code
 
 # Install sql-cli
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
-    curl https://packages.microsoft.com/config/debian/12/prod.list | sudo tee /etc/apt/sources.list.d/microsoft-prod.list && \
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /usr/share/keyrings/microsoft.asc && \
+    echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft.asc] \
+        https://packages.microsoft.com/debian/12/prod bookworm main" | \
+        sudo tee /etc/apt/sources.list.d/microsoft-prod.list && \
     sudo apt-get update && \
     sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
 
 # Install dotnet
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
-    curl https://packages.microsoft.com/config/debian/12/prod.list | sudo tee /etc/apt/sources.list.d/microsoft-prod.list && \
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /usr/share/keyrings/microsoft.asc && \
+    echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft.asc] \
+        https://packages.microsoft.com/debian/12/prod bookworm main" | \
+        sudo tee /etc/apt/sources.list.d/microsoft-prod.list && \
     sudo apt update && \
     sudo apt install -y dotnet-sdk-8.0 dotnet-sdk-6.0
 
