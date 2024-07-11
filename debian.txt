@@ -76,6 +76,7 @@ sudo apt install -y --show-progress \
     ssh-askpass-gnome \
     synaptic \
     task-laptop \
+    timeshift \
     uuid-runtime \
     unattended-upgrades \
     wireguard \
