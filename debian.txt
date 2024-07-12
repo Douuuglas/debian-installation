@@ -66,7 +66,7 @@ sudo apt install -y --show-progress \
     pdfarranger \
     plymouth-themes \
     printer-driver-cups-pdf \
-    python3.11-venv \
+    python3-venv \
     redis-cli \
     ruby \
     solaar \
@@ -183,21 +183,6 @@ cd ~/Downloads && \
     chmod +x linux-install.sh  && \
     sudo ./linux-install.sh  && \
     rm linux-install.sh
-
-# Install python 3.12.4
-cd ~/Downloads && \
-    apt install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
-        libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-        xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git && \
-    wget https://www.python.org/ftp/python/3.12.4/Python-3.12.4.tgz && \
-    tar -xvf Python-3.12.4.tgz && \
-    cd Python-3.12.4 && \
-    ./configure --enable-optimizations && \
-    make -j 8 && \
-    sudo make altinstall && \
-    cd .. && \
-    rm -rf Python-3.12.4.tgz Python-3.12.4 && \
-    python3.12 -m venv ~/.venv/python3.12
 
 # Install jetbrains-tools
 wget -O ~/Downloads/jetbrains-toolbox.tar.gz -c https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-2.4.0.32175.tar.gz && \
