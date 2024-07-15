@@ -138,7 +138,7 @@ curl -sS https://keybase.io/docs/server_security/code_signing_key.asc | sudo tee
     echo deb [signed-by=/usr/share/keyrings/keybase-keyring.asc] http://prerelease.keybase.io/deb stable main | sudo tee /etc/apt/sources.list.d/keybase.list && \
 
 # Install dbeaver-ce
-sudo  wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key && \
+sudo wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key && \
     echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list && \
     sudo apt update && \
     sudo apt install -y dbeaver-ce
@@ -191,6 +191,7 @@ cd ~/Downloads && \
 # Install jetbrains-tools
 wget -O ~/Downloads/jetbrains-toolbox.tar.gz -c https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-2.4.0.32175.tar.gz && \
     sudo tar -xzf jetbrains-toolbox.tar.gz -C /opt && \
+    sudo mv /opt/jetbrains-toolbox* /opt/jetbrains-toolbox && \
     rm ~/Downloads/jetbrains-toolbox.tar.gz
 
 # Config git
