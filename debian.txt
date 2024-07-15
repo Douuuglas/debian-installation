@@ -115,10 +115,10 @@ sudo install -d -m 0755 /usr/share/keyrings && \
     sudo apt update && sudo apt install -y firefox
 
 # Install spotify
-curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo tee /usr/share/keyrings/spotify.gpg && \
+curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /usr/share/keyrings/spotify.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list && \
     sudo apt-get update && \
-    sudo apt-get install spotify-client
+    sudo apt-get install -y spotify-client
 
 # Install slack
 cd ~/Downloads && \
@@ -130,11 +130,15 @@ cd ~/Downloads && \
 curl -sS https://keybase.io/docs/server_security/code_signing_key.asc | sudo tee /usr/share/keyrings/keybase-keyring.asc && \
     echo deb [signed-by=/usr/share/keyrings/keybase-keyring.asc] http://prerelease.keybase.io/deb stable main | sudo tee /etc/apt/sources.list.d/keybase.list && \
     sudo apt update && \
-    sudo apt install keybase
+    sudo apt install -y keybase
+
+    sudo apt-key del 656D16C7 && \
+    sudo rm /etc/apt/sources.list.d/keybase.list && \
+    echo deb [signed-by=/usr/share/keyrings/keybase-keyring.asc] http://prerelease.keybase.io/deb stable main | sudo tee /etc/apt/sources.list.d/keybase.list && \
 
 # Install dbeaver-ce
-curl -sS https://dbeaver.io/debs/dbeaver.gpg.key | sudo tee /usr/share/keyrings/dbeaver.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list && \
+sudo  wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key && \
+    echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list && \
     sudo apt update && \
     sudo apt install -y dbeaver-ce
 
