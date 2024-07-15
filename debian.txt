@@ -11,8 +11,7 @@ sudo dpkg-reconfigure locales
 sudo apt install -y nvidia-detect && \
     nvidia-detect
 
-sudo apt install -y nvidia-driver nvidia-suspend-common firmware-misc-nonfree \
-    xserver-xorg-input-all # not need on trixie?
+sudo apt install -y nvidia-driver nvidia-suspend-common firmware-misc-nonfree
 
 # If wayland is not enabled
 sudo sed -i '1s/^/options nvidia-drm modeset=1\n\n/' /etc/modprobe.d/nvidia-options.conf  && \
